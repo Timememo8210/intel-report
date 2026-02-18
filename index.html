@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Intel 2025 深度报告：职级、薪酬与校招</title>
+   <style>
+       :root {
+           --intel-blue: #0068B5;
+           --intel-light-blue: #00A3F5;
+           --bg-gray: #f4f6f9;
+           --table-header-bg: #005B9E;
+           --warning-bg: #FFF0F0;
+           --warning-text: #D9534F;
+           --success-bg: #E6F9F0;
+           --success-text: #28A745;
+           --card-bg: #ffffff;
+       }
+
+       body {
+           font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei", sans-serif;
+           background-color: var(--bg-gray);
+           color: #333;
+           line-height: 1.5;
+           margin: 0;
+           padding: 20px;
+       }
+
+       .container {
+           max-width: 900px;
+           margin: 0 auto;
+           background: white;
+           box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+           padding: 40px;
+       }
+
+       .cover-page {
+           background: linear-gradient(135deg, #0071C5 0%, #003E6D 100%);
+           color: white;
+           text-align: center;
+           padding: 60px 20px;
+           margin-bottom: 40px;
+           border-radius: 8px;
+       }
+
+       .cover-logo {
+           border: 2px solid white;
+           display: inline-block;
+           padding: 10px 20px;
+           border-radius: 12px;
+           margin-bottom: 20px;
+       }
+
+       .cover-title {
+           font-size: 3em;
+           margin: 10px 0;
+           font-weight: bold;
+       }
+
+       .cover-subtitle {
+           font-size: 1.2em;
+           letter-spacing: 2px;
+           opacity: 0.9;
+           margin-bottom: 30px;
+       }
+
+       .tag-pill {
+           background: rgba(255,255,255,0.2);
+           padding: 8px 16px;
+           border-radius: 20px;
+           display: inline-block;
+           margin: 5px;
+           font-size: 0.9em;
+       }
+
+       .section {
+           margin-bottom: 50px;
+           border-bottom: 1px solid #eee;
+           padding-bottom: 30px;
+       }
+
+       .section-title {
+           color: var(--intel-blue);
+           font-size: 1.5em;
+           border-left: 5px solid var(--intel-blue);
+           padding-left: 15px;
+           margin-bottom: 5px;
+           margin-top: 30px;
+       }
+
+       .section-subtitle {
+           color: #666;
+           font-size: 0.9em;
+           margin-bottom: 20px;
+           margin-left: 20px;
+       }
+
+       .sub-header {
+           color: var(--intel-blue);
+           font-weight: bold;
+           margin-top: 20px;
+           margin-bottom: 10px;
+           border-left: 3px solid var(--intel-light-blue);
+           padding-left: 10px;
+       }
+
+       .data-table {
+           width: 100%;
+           border-collapse: collapse;
+           margin: 15px 0;
+           font-size: 0.9em;
+       }
+
+       .data-table th {
+           background-color: var(--table-header-bg);
+           color: white;
+           text-align: left;
+           padding: 10px;
+       }
+
+       .data-table td {
+           border-bottom: 1px solid #ddd;
+           padding: 10px;
+       }
+
+       .data-table tr:nth-child(even) {
+           background-color: #f9fbff;
+       }
+
+       .highlight-row {
+           background-color: #FFF8DC !important;
+       }
+
+       .info-box {
+           background-color: #F0F8FF;
+           border-radius: 5px;
+           padding: 15px;
+           margin: 15px 0;
+           font-size: 0.9em;
+       }
+
+       .warning-box {
+           background-color: var(--warning-bg);
+           color: #8a1f1f;
+           border-radius: 5px;
+           padding: 15px;
+           margin: 15px 0;
+           font-size: 0.9em;
+           border-left: 4px solid var(--warning-text);
+       }
+
+       .grid-2 {
+           display: grid;
+           grid-template-columns: 1fr 1fr;
+           gap: 20px;
+       }
+
+       .card {
+           border: 1px solid #ddd;
+           border-radius: 8px;
+           padding: 15px;
+           background: white;
+           box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+           margin-bottom: 10px;
+       }
+
+       .card-header {
+           font-weight: bold;
+           color: #333;
+           margin-bottom: 8px;
+           display: flex;
+           justify-content: space-between;
+       }
+
+       .price-tag {
+           color: var(--intel-blue);
+           font-weight: bold;
+           font-size: 1.1em;
+       }
+
+       .badge {
+           padding: 2px 6px;
+           border-radius: 4px;
+           font-size: 0.8em;
+           font-weight: bold;
+       }
+       .badge-green { background-color: #d4edda; color: #155724; }
+       .badge-red { background-color: #f8d7da; color: #721c24; }
+       .badge-yellow { background-color: #fff3cd; color: #856404; }
+       .badge-blue { background-color: #cce5ff; color: #004085; }
+
+       .source-text {
+           font-size: 0.75em;
+           color: #999;
+           margin-top: 5px;
+       }
+
+       @media (max-width: 768px) {
+           .grid-2 { grid-template-columns: 1fr; }
+           .data-table { display: block; overflow-x: auto; }
+           .cover-title { font-size: 2em; }
+       }
+   </style>
+</head>
+<body>
+
+<div class="container">
+
+   <div class="cover-page">
+       <div class="cover-logo">
+           <h2 style="margin:0;">intel</h2>
+       </div>
+       <div class="cover-title">英特尔</div>
+       <div class="cover-subtitle">INTEL CORPORATION</div>
+       
+       <div style="margin: 30px 0;">
+           <span class="tag-pill">职级体系</span>
+           <span class="tag-pill">薪酬宽带</span>
+           <span class="tag-pill">校招数据</span>
+       </div>
+
+       <p style="font-size: 0.9em; opacity: 0.8;">2025年全面深度报告 · 含危机期激励现状</p>
+       
+       <div style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; margin-top: 20px; font-size: 0.85em;">
+           ⚠️ 2024-2025年裁员重组背景：全球削减2.4万岗位，中国区影响分析
+       </div>
+   </div>
+
+   <div class="section">
+       <h2 class="section-title">Grade职级体系全景</h2>
+       <div class="section-subtitle">G2-G14 全等级解析 · 个人贡献者 (IC) 序列</div>
+       
+       <div class="info-box">
+           英特尔采用Grade (G) 级别制度，共14个等级 (G2-G14)，全公司统一使用。G5为本科标准入职起点，G6为硕士起点。G8以上晋升难度显著提高，被称为"职场鬼门关"。
+       </div>
+
+       <table class="data-table">
+           <thead>
+               <tr>
+                   <th>Grade</th>
+                   <th>职级名称</th>
+                   <th>典型入职条件</th>
+                   <th>美国TC中位数 ($)</th>
+                   <th>晋升难度/说明</th>
+               </tr>
+           </thead>
+           <tbody>
+               <tr><td>G2-G3</td><td>Technician / Associate</td><td>本科应届/无经验</td><td>$60,000-90,000</td><td>制造/支持岗为主</td></tr>
+               <tr><td>G4</td><td>Engineer / Analyst</td><td>本科+1-2年经验</td><td>$90,000-115,000</td><td>初级工程师</td></tr>
+               <tr><td>G5</td><td>Engineer (入门)</td><td>本科应届/硕士1年</td><td>$130,000-155,000</td><td>⭐ 标准应届本科入职点</td></tr>
+               <tr><td>G6</td><td>Senior Engineer I</td><td>硕士应届/本科3-5年</td><td>$145,000-175,000</td><td>⭐ 标准应届硕士入职点</td></tr>
+               <tr><td>G7</td><td>Senior Engineer II</td><td>博士应届/硕士3-5年</td><td>$175,000-225,000</td><td>博士入职/有望2-3年晋升</td></tr>
+               <tr class="highlight-row"><td>G8</td><td>Staff Engineer</td><td>硕士6-10年/博士4-6年</td><td>$210,000-280,000</td><td>🔴 鬼门关：多数工程停止于G7</td></tr>
+               <tr class="highlight-row"><td>G9</td><td>Senior Staff</td><td>10年+/行业知名度</td><td>$270,000-380,000</td><td>🔴 需有跨项目影响力</td></tr>
+               <tr><td>G10</td><td>Principal Eng. (PE)</td><td>12-15年+/业内专家</td><td>$330,000-450,000</td><td>需Technical Circle认可</td></tr>
+               <tr><td>G11</td><td>Sr. Principal</td><td>15年+/全公司影响力</td><td>$420,000-600,000</td><td>极少数，每年新增<50人</td></tr>
+               <tr><td>G12</td><td>Intel Fellow</td><td>20年+/行业顶尖</td><td>$700,000-1M+</td><td>全公司约100人</td></tr>
+           </tbody>
+       </table>
+       <div class="info-box" style="border-left: 4px solid #ff9800;">
+           <strong>关于G7→G8的"鬼门关"：</strong> G7到G8是最难的晋升关卡，通常需要4-7年且不一定成功。需要展现出"独立负责重大项目"并有跨团队影响力。
+       </div>
+   </div>
+
+   <div class="section">
+       <h2 class="section-title">美国总部各级薪酬宽带</h2>
+       <div class="section-subtitle">Base + APB + QPB + RSU 全口径TC · 2024-2025年数据</div>
+
+       <div class="sub-header">软件/硬件工程师 G5-G12 薪酬宽带 (美国，年薪税前美元)</div>
+       <table class="data-table">
+           <thead>
+               <tr>
+                   <th>Grade</th>
+                   <th>职级名称</th>
+                   <th>Base Salary ($)</th>
+                   <th>APB+QPB奖金 ($)</th>
+                   <th>RSU年均 ($)</th>
+                   <th>TC中位数 ($)</th>
+               </tr>
+           </thead>
+           <tbody>
+               <tr><td>G5</td><td>Engineer</td><td>$106,000-130,000</td><td>$9,000-15,000</td><td>$12,000-18,000</td><td>~$135,000</td></tr>
+               <tr><td>G6</td><td>Senior Eng. I</td><td>$120,000-145,000</td><td>$11,000-18,000</td><td>$14,000-22,000</td><td>~$158,000</td></tr>
+               <tr><td>G7</td><td>Senior Eng. II</td><td>$138,000-165,000</td><td>$15,000-25,000</td><td>$20,000-30,000</td><td>~$189,000</td></tr>
+               <tr class="highlight-row"><td>G8</td><td>Staff Eng.</td><td>$155,000-195,000</td><td>$22,000-40,000</td><td>$30,000-50,000</td><td>~$219K-280K</td></tr>
+               <tr class="highlight-row"><td>G9</td><td>Sr. Staff</td><td>$185,000-230,000</td><td>$35,000-65,000</td><td>$50,000-85,000</td><td>~$285K-380K</td></tr>
+               <tr><td>G10</td><td>Principal</td><td>$210,000-270,000</td><td>$55,000-90,000</td><td>$70,000-120,000</td><td>~$330K-450K</td></tr>
+           </tbody>
+       </table>
+
+       <div class="info-box">
+           <strong>薪酬构成公式：TC = Base + APB + QPB + RSU + ESPP (可选)</strong><br>
+           <ul>
+               <li><strong>APB (年度绩效奖金):</strong> 每年1月根据上年度公司业绩及个人评级发放 (约0.6-0.8倍，低年份更低)。</li>
+               <li><strong>QPB (季度利润奖金):</strong> = Intel净利润 × 5% ÷ 全员日薪总量。2023-2024接近为零。</li>
+               <li><strong>RSU:</strong> 3年归属 (1年后25%，此后每季度等额归属)。</li>
+           </ul>
+       </div>
+   </div>
+
+   <div class="section">
+       <h2 class="section-title">中国区薪酬深度拆解</h2>
+       <div class="section-subtitle">上海紫竹 · 北京研究院 · 成都封测</div>
+
+       <p>中国区薪酬采用独立人民币体系，约为美国同级的30-40%。</p>
+
+       <table class="data-table">
+           <thead>
+               <tr>
+                   <th>Grade</th>
+                   <th>职级</th>
+                   <th>月薪 (税前, 元)</th>
+                   <th>年薪含奖金 (正常年)</th>
+                   <th>主要城市</th>
+               </tr>
+           </thead>
+           <tbody>
+               <tr><td>G5</td><td>Engineer</td><td>18,000-25,000</td><td>25-38万</td><td>上海/北京</td></tr>
+               <tr><td>G6</td><td>Senior Eng. I</td><td>24,000-32,000</td><td>33-50万</td><td>上海/北京</td></tr>
+               <tr><td>G7</td><td>Senior Eng. II</td><td>30,000-42,000</td><td>42-65万</td><td>上海/北京</td></tr>
+               <tr class="highlight-row"><td>G8</td><td>Staff Eng.</td><td>40,000-60,000</td><td>58-95万</td><td>上海</td></tr>
+               <tr class="highlight-row"><td>G9</td><td>Senior Staff</td><td>55,000-80,000</td><td>80-130万</td><td>上海</td></tr>
+           </tbody>
+       </table>
+
+       <div class="grid-2">
+           <div class="card">
+               <div class="card-header">
+                   <span>🏠 上海 (G6硕士)</span>
+                   <span class="price-tag">38万</span>
+               </div>
+               <div class="source-text">年薪中位数(正常年) | 公积金高，落户竞争性强，WLB相对平衡。</div>
+           </div>
+           <div class="card">
+               <div class="card-header">
+                   <span>🔬 北京研究院 (G7博士)</span>
+                   <span class="price-tag">60万</span>
+               </div>
+               <div class="source-text">AI研究方向 | 论文发表支持，北京落户支持。</div>
+           </div>
+       </div>
+   </div>
+
+   <div class="section">
+       <h2 class="section-title">双通道晋升体系 (Dual Ladder)</h2>
+       <div class="section-subtitle">技术路线 (IC Track) vs 管理路线 (Management Track)</div>
+
+       <div class="grid-2">
+           <div>
+               <h4 style="background:#0071C5; color:white; padding:5px;">🛠️ 技术路线 (IC/PE)</h4>
+               <ul style="list-style:none; padding:0;">
+                   <li><strong>G5-G6:</strong> Engineer / Senior Eng. (0-3yr)</li>
+                   <li><strong>G7:</strong> Senior Engineer II (3-6yr)</li>
+                   <li><strong>G8:</strong> Staff Engineer ⚡ (6-10yr)</li>
+                   <li><strong>G9:</strong> Senior Staff Engineer (10yr+)</li>
+                   <li><strong>G10:</strong> Principal Engineer (PE)</li>
+               </ul>
+           </div>
+           <div>
+               <h4 style="background:#003E6D; color:white; padding:5px;">👔 管理路线 (Mgmt)</h4>
+               <ul style="list-style:none; padding:0;">
+                   <li><strong>G6-G7:</strong> Team Lead (非正式)</li>
+                   <li><strong>G7-G8:</strong> Engineering Manager (5yr+)</li>
+                   <li><strong>G8-G9:</strong> Sr. Eng. Manager ⚡ (8yr+)</li>
+                   <li><strong>G9-G10:</strong> Director (12yr+)</li>
+                   <li><strong>G10-G11:</strong> Senior Director</li>
+               </ul>
+           </div>
+       </div>
+
+       <div class="sub-header">与国内互联网大厂职级对照</div>
+       <table class="data-table">
+           <thead>
+               <tr>
+                   <th>Intel</th>
+                   <th>阿里 P序列</th>
+                   <th>腾讯 T序列</th>
+                   <th>字节 LK序列</th>
+                   <th>华为</th>
+               </tr>
+           </thead>
+           <tbody>
+               <tr><td>G5-G6</td><td>P5-P6</td><td>T2.3-T3.1</td><td>LK2-LK3</td><td>13-14级</td></tr>
+               <tr><td>G7</td><td>P6-P7</td><td>T3.2-T3.3</td><td>LK3</td><td>14-15级</td></tr>
+               <tr class="highlight-row"><td>G8</td><td>P7-P8</td><td>T4.1-T4.2</td><td>LK4</td><td>15-16级</td></tr>
+               <tr class="highlight-row"><td>G9</td><td>P8-P9</td><td>T4.3</td><td>LK5</td><td>16-17级</td></tr>
+           </tbody>
+       </table>
+   </div>
+
+   <div class="section">
+       <h2 class="section-title">福利体系与动荡期生存法则</h2>
+       <div class="section-subtitle">中国区福利体系对比 (正常期 vs 2024-2025削减后)</div>
+
+       <table class="data-table">
+           <thead>
+               <tr>
+                   <th>福利项目</th>
+                   <th>历史状态 (2020-2022)</th>
+                   <th>2024-2025现状</th>
+                   <th>变化</th>
+               </tr>
+           </thead>
+           <tbody>
+               <tr><td>公积金</td><td>12% (上海最高基数)</td><td>12%, 保持</td><td><span class="badge badge-green">不变</span></td></tr>
+               <tr><td>补充公积金</td><td>部分有额外补充</td><td>基本取消</td><td><span class="badge badge-red">削减</span></td></tr>
+               <tr><td>免费班车</td><td>上海闵行园区多路线</td><td>部分线路保留</td><td><span class="badge badge-yellow">缩减</span></td></tr>
+               <tr><td>带薪休假 (PTO)</td><td>年假15天+额外浮动</td><td>年假15天, 保持</td><td><span class="badge badge-green">不变</span></td></tr>
+               <tr><td>Sabbatical休假</td><td>每7年可申请4-8周带薪</td><td>政策保留，审批趋严</td><td><span class="badge badge-blue">保留</span></td></tr>
+               <tr><td>补充医疗</td><td>完善的商业医疗保险</td><td>基本保留，条款微调</td><td><span class="badge badge-blue">基本保留</span></td></tr>
+               <tr><td>ESPP</td><td>85折购股，贡献上限10%</td><td>保持</td><td><span class="badge badge-green">不变</span></td></tr>
+           </tbody>
+       </table>
+
+       <div class="warning-box">
+            <strong>在职员工注意：</strong> 2025年新一轮裁员无Severance package (与2024年不同)，仅有基础N+1法定补偿。绩效评级保持"Successful"以上是保住职位的关键。
+       </div>
+   </div>
+
+   <div class="section">
+       <h2 class="section-title">2026届秋招数据与前瞻</h2>
+       <div class="section-subtitle">2025年秋招已曝光Offer汇总</div>
+
+       <div class="card">
+           <div class="card-header">
+               <span>📍 上海紫竹 · 研发工程师 · 硕士985 (2026届)</span>
+               <span class="price-tag">38-48万</span>
+           </div>
+           <div class="source-text">G6定级 · IC设计方向 · 月薪26k-32k · 第一年APB约1-1.5个月 · 上海落户</div>
+       </div>
+
+       <div class="card">
+           <div class="card-header">
+               <span>📍 上海紫竹 · 软件工程师 · 硕士985 (2026届)</span>
+               <span class="price-tag">42-56万</span>
+           </div>
+           <div class="source-text">G6定级 · 系统软件/AI应用 · 月薪28k-36k · 上海落户</div>
+       </div>
+
+       <div class="card">
+           <div class="card-header">
+               <span>📍 北京研究院 · AI工程师 · 博士985 (2026届)</span>
+               <span class="price-tag">58-78万</span>
+           </div>
+           <div class="source-text">G7定级 · 大模型/感知算法 · 月薪40k-50k · 北京落户支持 · RSU授予</div>
+       </div>
+
+       <div class="card">
+           <div class="card-header">
+               <span>📍 成都封测 · 制程工程师 · 硕士211 (2026届)</span>
+               <span class="price-tag">22-30万</span>
+           </div>
+           <div class="source-text">G5定级 · 封装测试方向 · 月薪14k-18k · 压缩工作周 · 成都生活成本低</div>
+       </div>
+
+       <div class="warning-box" style="margin-top: 20px;">
+           <strong>2025年重组背景提示 (应届生必读)：</strong> Intel 2025年宣布裁减全球岗位。中国区受波及较小，上海/北京研发岗属保留核心，但招聘规模明显收缩。建议应届生优先考虑AI、数据中心事业部等核心业务团队。
+       </div>
+   </div>
+
+   <div style="font-size: 0.8em; color: #999; text-align: center; margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px;">
+       数据来源：Levels.fyi, Glassdoor, TheLayoff.com, Blind, 牛客网, 脉脉 · 本页面为图片内容还原生成
+   </div>
+
+</div>
+
+</body>
+</html>
